@@ -1,0 +1,13 @@
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.Negocio.dll.config
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.Negocio.dll
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.Negocio.pdb
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\EntityFramework.dll
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.DALC.dll
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.DALC.pdb
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\Masterbike.DALC.dll.config
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\bin\Debug\EntityFramework.xml
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\obj\Debug\Masterbike.Negocio.csproj.AssemblyReference.cache
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\obj\Debug\Masterbike.Negocio.csproj.CoreCompileInputs.cache
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\obj\Debug\Masterbike.Negocio.csproj.CopyComplete
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\obj\Debug\Masterbike.Negocio.dll
+D:\bicicletas\masterbikes\Masterbike\Masterbike.Negocio\obj\Debug\Masterbike.Negocio.pdb

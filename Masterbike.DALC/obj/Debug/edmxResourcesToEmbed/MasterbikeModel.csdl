@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DETALLEINGRESO">
+    <Key>
+      <PropertyRef Name="ID_DETALLEIN" />
+    </Key>
+    <Property Name="ID_DETALLEIN" Type="Int16" Nullable="false" />
+    <Property Name="CANTIDAD" Type="Int32" Nullable="false" />
+    <Property Name="PRECIOCOMPRA" Type="Int32" />
+    <Property Name="PRECIOVENTA" Type="Int32" />
+    <Property Name="ID_INGRESO" Type="Int16" Nullable="false" />
+    <Property Name="ID_PRODUCTO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="INGRESO" Relationship="Self.FK_DETALLEINGRESO_INGRESO" FromRole="DETALLEINGRESO" ToRole="INGRESO" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_DETALLEINGRESO_PRODUCTO" FromRole="DETALLEINGRESO" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="DETALLEVENTA">
+    <Key>
+      <PropertyRef Name="ID_DETALLEVENTA" />
+    </Key>
+    <Property Name="ID_DETALLEVENTA" Type="Int16" Nullable="false" />
+    <Property Name="CANTIDAD" Type="Int32" Nullable="false" />
+    <Property Name="PRECIOVENTA" Type="Int32" />
+    <Property Name="ID_VENTA" Type="Int16" Nullable="false" />
+    <Property Name="ID_PRODUCTO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_DETALLEVENTA_PRODUCTO" FromRole="DETALLEVENTA" ToRole="PRODUCTO" />
+    <NavigationProperty Name="VENTA" Relationship="Self.FK_DETALLEVENTA_VENTA" FromRole="DETALLEVENTA" ToRole="VENTA" />
+  </EntityType>
+  <EntityType Name="DOCUMENTACION">
+    <Key>
+      <PropertyRef Name="ID_DOCUMENTACION" />
+    </Key>
+    <Property Name="ID_DOCUMENTACION" Type="Int16" Nullable="false" />
+    <Property Name="TIPODOCUMENTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NOMDOCUMENTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DOCUMENTO" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ID_PRODUCTO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_DOCUMENTACION_PRODUCTO" FromRole="DOCUMENTACION" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="INGRESO">
+    <Key>
+      <PropertyRef Name="ID_INGRESO" />
+    </Key>
+    <Property Name="ID_INGRESO" Type="Int16" Nullable="false" />
+    <Property Name="TIPOCOMPROBANTE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="NUMCOMPROBANTE" Type="Int32" />
+    <Property Name="FECHHORA" Type="DateTime" />
+    <Property Name="ID_PROVEEDOR" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="DETALLEINGRESO" Relationship="Self.FK_DETALLEINGRESO_INGRESO" FromRole="INGRESO" ToRole="DETALLEINGRESO" />
+    <NavigationProperty Name="PROVEEDOR" Relationship="Self.FK_INGRESO_PROVEEDOR" FromRole="INGRESO" ToRole="PROVEEDOR" />
+  </EntityType>
+  <EntityType Name="MANTENCION">
+    <Key>
+      <PropertyRef Name="ID_MANTENCION" />
+    </Key>
+    <Property Name="ID_MANTENCION" Type="Int16" Nullable="false" />
+    <Property Name="OBSERVACION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="GARANTIA" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="FECINGRESO" Type="DateTime" />
+    <Property Name="FECSALIDA" Type="DateTime" />
+    <Property Name="ESTADO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ID_SERVICIO" Type="Int16" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="SERVICIO" Relationship="Self.FK_MANTENCION_SERVICIO" FromRole="MANTENCION" ToRole="SERVICIO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_MANTENCION_USUARIO" FromRole="MANTENCION" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="PRODUCTO">
+    <Key>
+      <PropertyRef Name="ID_PRODUCTO" />
+    </Key>
+    <Property Name="ID_PRODUCTO" Type="Int16" Nullable="false" />
+    <Property Name="NOMBREPRODUCTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TIPOPRODUCTO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="FABRICPROPIA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="VALPRODUCTO" Type="Int32" Nullable="false" />
+    <Property Name="MARCA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="MODELO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="STOCK" Type="Int32" Nullable="false" />
+    <Property Name="IMAGEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="DETALLEINGRESO" Relationship="Self.FK_DETALLEINGRESO_PRODUCTO" FromRole="PRODUCTO" ToRole="DETALLEINGRESO" />
+    <NavigationProperty Name="DETALLEVENTA" Relationship="Self.FK_DETALLEVENTA_PRODUCTO" FromRole="PRODUCTO" ToRole="DETALLEVENTA" />
+    <NavigationProperty Name="DOCUMENTACION" Relationship="Self.FK_DOCUMENTACION_PRODUCTO" FromRole="PRODUCTO" ToRole="DOCUMENTACION" />
+    <NavigationProperty Name="VENTA" Relationship="Self.FK_VENTA_PRODUCTO" FromRole="PRODUCTO" ToRole="VENTA" />
+  </EntityType>
+  <EntityType Name="PROVEEDOR">
+    <Key>
+      <PropertyRef Name="ID_PROVEEDOR" />
+    </Key>
+    <Property Name="ID_PROVEEDOR" Type="Int16" Nullable="false" />
+    <Property Name="RUT_PROVEEDOR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NOM_PROVEEDOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APE_PROVEEDOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DIRECCION_PROVEEDOR" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFONO_PROVEEDOR" Type="Int32" />
+    <Property Name="EMAIL_PROVEEDOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="INGRESO" Relationship="Self.FK_INGRESO_PROVEEDOR" FromRole="PROVEEDOR" ToRole="INGRESO" />
+  </EntityType>
+  <EntityType Name="REGERRORES">
+    <Key>
+      <PropertyRef Name="ID_ERROR" />
+    </Key>
+    <Property Name="ID_ERROR" Type="Int16" Nullable="false" />
+    <Property Name="CODIGOERROR" Type="Int16" Nullable="false" />
+    <Property Name="MENSAJERROR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECERROR" Type="DateTime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="REPORTE">
+    <Key>
+      <PropertyRef Name="ID_REPORTE" />
+    </Key>
+    <Property Name="ID_REPORTE" Type="Int16" Nullable="false" />
+    <Property Name="TIPOREPORTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECINICIO" Type="DateTime" />
+    <Property Name="FECFIN" Type="DateTime" />
+    <Property Name="FECEMISION" Type="DateTime" Nullable="false" />
+    <Property Name="SUCURSALREPORTE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BICICLETAIN" Type="Int32" />
+    <Property Name="BICICLETAOUT" Type="Int32" />
+    <Property Name="ACCESORIOIN" Type="Int32" />
+    <Property Name="ACCESORIOOUT" Type="Int32" />
+    <Property Name="TOTALVENTA" Type="Int32" />
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <Property Name="ID_SUCURSAL" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="SUCURSAL" Relationship="Self.FK_REPORTE_SUCURSAL" FromRole="REPORTE" ToRole="SUCURSAL" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_REPORTE_USUARIO" FromRole="REPORTE" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="ROL">
+    <Key>
+      <PropertyRef Name="ID_ROL" />
+    </Key>
+    <Property Name="ID_ROL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ROL" FromRole="ROL" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="SEGUIMIENTOENVIOS">
+    <Key>
+      <PropertyRef Name="ID_SEGUI_ENVIOS" />
+    </Key>
+    <Property Name="ID_SEGUI_ENVIOS" Type="Int16" Nullable="false" />
+    <Property Name="TIPOENTREGA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TIPOPAGO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DIRECCENTREGA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ESTADOENTREGA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EMPTRANSPORTE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECDESPACHO" Type="DateTime" Nullable="false" />
+    <Property Name="FECENTREGA" Type="DateTime" Nullable="false" />
+    <Property Name="ID_VENTA" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="VENTA" Relationship="Self.FK_SEGUIMIENTOENVIOS_VENTA" FromRole="SEGUIMIENTOENVIOS" ToRole="VENTA" />
+  </EntityType>
+  <EntityType Name="SERVICIO">
+    <Key>
+      <PropertyRef Name="ID_SERVICIO" />
+    </Key>
+    <Property Name="ID_SERVICIO" Type="Int16" Nullable="false" />
+    <Property Name="DESCRIPCION_SERVICIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PRECIOSERVICIO" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MANTENCION" Relationship="Self.FK_MANTENCION_SERVICIO" FromRole="SERVICIO" ToRole="MANTENCION" />
+    <NavigationProperty Name="SOLICITUDMANTENCION" Relationship="Self.FK_SOLICITUDMANTENCION_SERVICIO" FromRole="SERVICIO" ToRole="SOLICITUDMANTENCION" />
+  </EntityType>
+  <EntityType Name="SOLICITUDARRIENDO">
+    <Key>
+      <PropertyRef Name="ID_SOL_ARRIENDO" />
+    </Key>
+    <Property Name="ID_SOL_ARRIENDO" Type="Int16" Nullable="false" />
+    <Property Name="TIPOBICICLETA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FECINI_ARRIENDO" Type="DateTime" Nullable="false" />
+    <Property Name="FECFIN_ARRIENDO" Type="DateTime" Nullable="false" />
+    <Property Name="FORMAPAGO_ARRI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DEPOSITOGARANTIA" Type="Int32" />
+    <Property Name="COMENTARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_SOLICITUDARRIENDO_USUARIO" FromRole="SOLICITUDARRIENDO" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="SOLICITUDMANTENCION">
+    <Key>
+      <PropertyRef Name="ID_SOL_MANTENCION" />
+    </Key>
+    <Property Name="ID_SOL_MANTENCION" Type="Int16" Nullable="false" />
+    <Property Name="RETIRODOMICILIO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="FEC_SOLICITADA" Type="DateTime" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ID_SERVICIO" Type="Int16" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="SERVICIO" Relationship="Self.FK_SOLICITUDMANTENCION_SERVICIO" FromRole="SOLICITUDMANTENCION" ToRole="SERVICIO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_SOLICITUDMANTENCION_USUARIO" FromRole="SOLICITUDMANTENCION" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="SUCURSAL">
+    <Key>
+      <PropertyRef Name="ID_SUCURSAL" />
+    </Key>
+    <Property Name="ID_SUCURSAL" Type="Int16" Nullable="false" />
+    <Property Name="NOMSUCURSAL" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DIRECCION_SUCURSAL" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="REPORTE" Relationship="Self.FK_REPORTE_SUCURSAL" FromRole="SUCURSAL" ToRole="REPORTE" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <Property Name="USERNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PASSWORD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PNOMBRE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SNOMBRE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="APPATERNO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="APMATERNO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL_USUARIO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="RUT_USUARIO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EDAD" Type="Int16" />
+    <Property Name="FECHANAC" Type="DateTime" Nullable="false" />
+    <Property Name="DIRECCION_USUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NUMTELEFONO" Type="Int32" Nullable="false" />
+    <Property Name="ESTADOCIVIL" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ID_ROL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="MANTENCION" Relationship="Self.FK_MANTENCION_USUARIO" FromRole="USUARIO" ToRole="MANTENCION" />
+    <NavigationProperty Name="REPORTE" Relationship="Self.FK_REPORTE_USUARIO" FromRole="USUARIO" ToRole="REPORTE" />
+    <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
+    <NavigationProperty Name="SOLICITUDARRIENDO" Relationship="Self.FK_SOLICITUDARRIENDO_USUARIO" FromRole="USUARIO" ToRole="SOLICITUDARRIENDO" />
+    <NavigationProperty Name="SOLICITUDMANTENCION" Relationship="Self.FK_SOLICITUDMANTENCION_USUARIO" FromRole="USUARIO" ToRole="SOLICITUDMANTENCION" />
+    <NavigationProperty Name="VENTA" Relationship="Self.FK_VENTA_USUARIO" FromRole="USUARIO" ToRole="VENTA" />
+  </EntityType>
+  <EntityType Name="VENTA">
+    <Key>
+      <PropertyRef Name="ID_VENTA" />
+    </Key>
+    <Property Name="ID_VENTA" Type="Int16" Nullable="false" />
+    <Property Name="TIPOCOMPROBANTE_VENTA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NUMCOMPROBANTE" Type="Int32" Nullable="false" />
+    <Property Name="FECHORA" Type="DateTime" Nullable="false" />
+    <Property Name="ID_PRODUCTO" Type="Int16" Nullable="false" />
+    <Property Name="TOTALVENTA" Type="Int32" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="DETALLEVENTA" Relationship="Self.FK_DETALLEVENTA_VENTA" FromRole="VENTA" ToRole="DETALLEVENTA" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK_VENTA_PRODUCTO" FromRole="VENTA" ToRole="PRODUCTO" />
+    <NavigationProperty Name="SEGUIMIENTOENVIOS" Relationship="Self.FK_SEGUIMIENTOENVIOS_VENTA" FromRole="VENTA" ToRole="SEGUIMIENTOENVIOS" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_VENTA_USUARIO" FromRole="VENTA" ToRole="USUARIO" />
+  </EntityType>
+  <Association Name="FK_DETALLEINGRESO_INGRESO">
+    <End Role="INGRESO" Type="Self.INGRESO" Multiplicity="1" />
+    <End Role="DETALLEINGRESO" Type="Self.DETALLEINGRESO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="INGRESO">
+        <PropertyRef Name="ID_INGRESO" />
+      </Principal>
+      <Dependent Role="DETALLEINGRESO">
+        <PropertyRef Name="ID_INGRESO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEINGRESO_PRODUCTO">
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+    <End Role="DETALLEINGRESO" Type="Self.DETALLEINGRESO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Principal>
+      <Dependent Role="DETALLEINGRESO">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEVENTA_PRODUCTO">
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+    <End Role="DETALLEVENTA" Type="Self.DETALLEVENTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Principal>
+      <Dependent Role="DETALLEVENTA">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEVENTA_VENTA">
+    <End Role="VENTA" Type="Self.VENTA" Multiplicity="1" />
+    <End Role="DETALLEVENTA" Type="Self.DETALLEVENTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTA">
+        <PropertyRef Name="ID_VENTA" />
+      </Principal>
+      <Dependent Role="DETALLEVENTA">
+        <PropertyRef Name="ID_VENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DOCUMENTACION_PRODUCTO">
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+    <End Role="DOCUMENTACION" Type="Self.DOCUMENTACION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Principal>
+      <Dependent Role="DOCUMENTACION">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INGRESO_PROVEEDOR">
+    <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="1" />
+    <End Role="INGRESO" Type="Self.INGRESO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ID_PROVEEDOR" />
+      </Principal>
+      <Dependent Role="INGRESO">
+        <PropertyRef Name="ID_PROVEEDOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MANTENCION_SERVICIO">
+    <End Role="SERVICIO" Type="Self.SERVICIO" Multiplicity="1" />
+    <End Role="MANTENCION" Type="Self.MANTENCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SERVICIO">
+        <PropertyRef Name="ID_SERVICIO" />
+      </Principal>
+      <Dependent Role="MANTENCION">
+        <PropertyRef Name="ID_SERVICIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MANTENCION_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="MANTENCION" Type="Self.MANTENCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="MANTENCION">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VENTA_PRODUCTO">
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+    <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Principal>
+      <Dependent Role="VENTA">
+        <PropertyRef Name="ID_PRODUCTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REPORTE_SUCURSAL">
+    <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="1" />
+    <End Role="REPORTE" Type="Self.REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUCURSAL">
+        <PropertyRef Name="ID_SUCURSAL" />
+      </Principal>
+      <Dependent Role="REPORTE">
+        <PropertyRef Name="ID_SUCURSAL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REPORTE_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="REPORTE" Type="Self.REPORTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="REPORTE">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_ROL">
+    <End Role="ROL" Type="Self.ROL" Multiplicity="1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROL">
+        <PropertyRef Name="ID_ROL" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="ID_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SEGUIMIENTOENVIOS_VENTA">
+    <End Role="VENTA" Type="Self.VENTA" Multiplicity="1" />
+    <End Role="SEGUIMIENTOENVIOS" Type="Self.SEGUIMIENTOENVIOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTA">
+        <PropertyRef Name="ID_VENTA" />
+      </Principal>
+      <Dependent Role="SEGUIMIENTOENVIOS">
+        <PropertyRef Name="ID_VENTA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITUDMANTENCION_SERVICIO">
+    <End Role="SERVICIO" Type="Self.SERVICIO" Multiplicity="1" />
+    <End Role="SOLICITUDMANTENCION" Type="Self.SOLICITUDMANTENCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SERVICIO">
+        <PropertyRef Name="ID_SERVICIO" />
+      </Principal>
+      <Dependent Role="SOLICITUDMANTENCION">
+        <PropertyRef Name="ID_SERVICIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITUDARRIENDO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="SOLICITUDARRIENDO" Type="Self.SOLICITUDARRIENDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="SOLICITUDARRIENDO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITUDMANTENCION_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="SOLICITUDMANTENCION" Type="Self.SOLICITUDMANTENCION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="SOLICITUDMANTENCION">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VENTA_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="VENTA">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MasterbikeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DETALLEINGRESO" EntityType="Self.DETALLEINGRESO" />
+    <EntitySet Name="DETALLEVENTA" EntityType="Self.DETALLEVENTA" />
+    <EntitySet Name="DOCUMENTACION" EntityType="Self.DOCUMENTACION" />
+    <EntitySet Name="INGRESO" EntityType="Self.INGRESO" />
+    <EntitySet Name="MANTENCION" EntityType="Self.MANTENCION" />
+    <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+    <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" />
+    <EntitySet Name="REGERRORES" EntityType="Self.REGERRORES" />
+    <EntitySet Name="REPORTE" EntityType="Self.REPORTE" />
+    <EntitySet Name="ROL" EntityType="Self.ROL" />
+    <EntitySet Name="SEGUIMIENTOENVIOS" EntityType="Self.SEGUIMIENTOENVIOS" />
+    <EntitySet Name="SERVICIO" EntityType="Self.SERVICIO" />
+    <EntitySet Name="SOLICITUDARRIENDO" EntityType="Self.SOLICITUDARRIENDO" />
+    <EntitySet Name="SOLICITUDMANTENCION" EntityType="Self.SOLICITUDMANTENCION" />
+    <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <EntitySet Name="VENTA" EntityType="Self.VENTA" />
+    <AssociationSet Name="FK_DETALLEINGRESO_INGRESO" Association="Self.FK_DETALLEINGRESO_INGRESO">
+      <End Role="INGRESO" EntitySet="INGRESO" />
+      <End Role="DETALLEINGRESO" EntitySet="DETALLEINGRESO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEINGRESO_PRODUCTO" Association="Self.FK_DETALLEINGRESO_PRODUCTO">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="DETALLEINGRESO" EntitySet="DETALLEINGRESO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEVENTA_PRODUCTO" Association="Self.FK_DETALLEVENTA_PRODUCTO">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="DETALLEVENTA" EntitySet="DETALLEVENTA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEVENTA_VENTA" Association="Self.FK_DETALLEVENTA_VENTA">
+      <End Role="VENTA" EntitySet="VENTA" />
+      <End Role="DETALLEVENTA" EntitySet="DETALLEVENTA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DOCUMENTACION_PRODUCTO" Association="Self.FK_DOCUMENTACION_PRODUCTO">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="DOCUMENTACION" EntitySet="DOCUMENTACION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INGRESO_PROVEEDOR" Association="Self.FK_INGRESO_PROVEEDOR">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="INGRESO" EntitySet="INGRESO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MANTENCION_SERVICIO" Association="Self.FK_MANTENCION_SERVICIO">
+      <End Role="SERVICIO" EntitySet="SERVICIO" />
+      <End Role="MANTENCION" EntitySet="MANTENCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MANTENCION_USUARIO" Association="Self.FK_MANTENCION_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="MANTENCION" EntitySet="MANTENCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VENTA_PRODUCTO" Association="Self.FK_VENTA_PRODUCTO">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="VENTA" EntitySet="VENTA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REPORTE_SUCURSAL" Association="Self.FK_REPORTE_SUCURSAL">
+      <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+      <End Role="REPORTE" EntitySet="REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REPORTE_USUARIO" Association="Self.FK_REPORTE_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="REPORTE" EntitySet="REPORTE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+      <End Role="ROL" EntitySet="ROL" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SEGUIMIENTOENVIOS_VENTA" Association="Self.FK_SEGUIMIENTOENVIOS_VENTA">
+      <End Role="VENTA" EntitySet="VENTA" />
+      <End Role="SEGUIMIENTOENVIOS" EntitySet="SEGUIMIENTOENVIOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITUDMANTENCION_SERVICIO" Association="Self.FK_SOLICITUDMANTENCION_SERVICIO">
+      <End Role="SERVICIO" EntitySet="SERVICIO" />
+      <End Role="SOLICITUDMANTENCION" EntitySet="SOLICITUDMANTENCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITUDARRIENDO_USUARIO" Association="Self.FK_SOLICITUDARRIENDO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="SOLICITUDARRIENDO" EntitySet="SOLICITUDARRIENDO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITUDMANTENCION_USUARIO" Association="Self.FK_SOLICITUDMANTENCION_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="SOLICITUDMANTENCION" EntitySet="SOLICITUDMANTENCION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VENTA_USUARIO" Association="Self.FK_VENTA_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="VENTA" EntitySet="VENTA" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
